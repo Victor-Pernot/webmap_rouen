@@ -1,0 +1,151 @@
+﻿<!-- MapServer Template -->
+<html>
+	<head>
+		<title>Template dynamique</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> <!-- configuration de meta donnees, à copier coller -->
+
+		<script language="JavaScript">
+			var pansize = 50;
+
+			function fleche(direction) {
+			var x, y;
+
+			if(direction == 'n') {
+				x = ([mapwidth])/2.0;
+				y = ([mapheight]/2.0) - pansize;
+			} else if(direction == 'nw') {
+				x = ([mapwidth]/2.0)- pansize;
+				y = ([mapheight]/2.0) - pansize;
+			} else if(direction == 'ne') {
+				x = ([mapwidth]/2.0)+ pansize;
+				y = ([mapheight]/2.0) - pansize;
+			} else if(direction == 's') {
+				x = ([mapwidth])/2.0;
+				y = ([mapheight]/2.0) + pansize;
+			} else if(direction == 'sw') {
+				x = ([mapwidth]/2.0)- pansize;
+				y = ([mapheight]/2.0) + pansize;
+			} else if(direction == 'se') {
+				x = ([mapwidth]/2.0)+ pansize;
+				y = ([mapheight]/2.0) + pansize;
+			} else if(direction == 'e') {
+				x = ([mapwidth]/2.0)+ pansize;
+				y = ([mapheight])/2.0;
+			} else if(direction == 'w') {
+				x = ([mapwidth]/2.0)- pansize;
+				y = ([mapheight])/2.0;
+			}
+			
+			document.mapserv.zoom[3].selected = true;
+			document.mapserv.imgxy.value = x + " " + y;
+			document.mapserv.submit(); }
+		</script>
+	</head>
+	
+	<body bgcolor="DFDFDF" text="#000000">
+		<table width="700" align="center">
+			<tr>
+				<td>
+					<h3 align="center">Repartition des lieux de captage d'eau douce autour de l'agglomeration rouennaise</h3><br>
+					<form name="mapserv" method="GET" action="/cgi-bin/mapserv.exe">
+					
+						<input type="hidden" name="map" value="[map]"> 
+						<input type="hidden" name="imgext" value="[mapext]"> <!-- permet de changer les valeurs EXTENT quand on zoom -->
+						<input type="hidden" name="imgxy" value="400 400">
+						
+							<table width="1060" border="1" align="center">
+								<td width="350">
+									<div align="center">Mode de carte :<br> <!--br : aller à la ligne-->
+										<select name="mode">
+											<option value="browse">Browse</option>
+												<option value="map">Map</option>
+													<option value="query"> Query</option>
+										</select>
+									</div>
+								</td>
+							
+								<td>
+									<div align="center">Controle de la carte :<br>
+										<select name="zoom">
+											<option value="4" [zoom_4_select]>Zoom par 4</option>
+											<option value="3" [zoom_3_select]>Zoom par 3</option>
+											<option value="2" [zoom_2_select]>Zoom par 2</option>
+											<option value="1" [zoom_1_select]>Zoom par 1</option>
+											<option value="-2" [zoom_-2_select]>Dezoom par 2</option>
+											<option value="-3" [zoom_-3_select]>Dezoom par 3</option>
+											<option value="-4" [zoom_-4_select]>Dezoom par 4</option>
+										</select>
+									</div>
+								</td>
+							
+								<td width="350">
+									<div align="center">
+										<input type="submit"  value="Rafraichir">&nbsp; &nbsp; &nbsp;
+										<input type="button" name="Reinitialiser" value="Reinitialiser" onclick="self.location.href='mapserv.exe?map=C:/ms4w/apps/application_VictorPernot_21401973/application_VictorPernot_21401973.map&mode=browse' "style="background-color:#D4AAFF">
+									</div>
+								</td>
+								
+								<table border="0" cellspacing="0" cellpadding="0" align="center" bgcolor="#A9CED6">
+									<tr>
+										<td align="right" width="18"><a href="javascript:fleche('nw')">
+											<img src="https://i.imgur.com/5Y0glrX.png" width="25" height="25" border="0" alt="fleche nord ouest"></a>
+										</td>
+
+										<td align="center"><a href="javascript:fleche('n')">
+											<img src="https://i.imgur.com/EE2kXHd.png" width="30" height="30" border="0" alt="fleche nord"></a>
+										</td>
+										</td>
+										<td align="left" width="18"><a href="javascript:fleche('ne')">
+											<img src="https://i.imgur.com/tcHFQDE.png" width="25" height="25" border="0" alt="fleche nord est"></a>
+										</td>
+									</tr>
+												
+									<tr>
+										<td align="right" width="18"><a href="javascript:fleche('w')">
+											<img src="https://i.imgur.com/jcOaduK.png" width="30" height="30" border="0" alt="fleche ouest"></a>
+										</td>
+										<td align="center">
+											<input type="image" name="img" src="[img]" width="[mapwidth]" height="[mapheight]" border="0" alt="C'est la carte">
+										</td>
+										<td align="left" width="18"><a href="javascript:fleche('e')">
+											<img src="https://i.imgur.com/ptcfL4V.png" width="30" height="30" border="0" alt="fleche est"></a>
+										</td>
+									</tr>
+									
+									<tr>
+										<td align="right" width="18"><a href="javascript:fleche('sw')">
+											<img src="https://i.imgur.com/T2K2Nxw.png" width="25" height="25" border="0" alt="fleche sud ouest"></a>
+										</td>
+
+										<td align="center"><a href="javascript:fleche('s')">
+											<img src="https://i.imgur.com/vD0ez89.png" width="30" height="30" border="0" alt="fleche sud"></a>
+										</td>
+										<td align="left" width="18"><a href="javascript:fleche('se')">
+											<img src="https://i.imgur.com/Ms2OwBS.png" width="25" height="25" border="0" alt="fleche sud est"></a>
+										</td>
+									</tr>
+								</table>
+								
+									<tr>
+										<td align="left" valign="top">
+											<img src="[legend]" align="left"> 
+											<img src="[scalebar]" align="right">							
+										</td>
+									</tr>
+							</table>
+							
+								<table height="150" width="1060" align="center">
+									<tr>
+										<td align="right" valign="top">
+											<img src="https://i.imgur.com/ZnM5Y4B.jpg" width="210" height="105" border="0" alt="logo agence de l'eau">								
+										</td>
+										<th align="right" valign="top"><font size="-1">Source : Landsat 8, <I>BRGM</I><br>Auteur : Victor Pernot<br>Date : mars 2018</font></th>
+									</tr>
+								</table>
+					</form>
+				</td>
+			</tr>
+		</table>
+	</body>
+	
+</html>

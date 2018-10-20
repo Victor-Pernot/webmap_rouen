@@ -1,0 +1,162 @@
+MAP
+
+# URL application : localhost/cgi-bin/mapserv.exe?map=C:\ms4w\apps\application_VictorPernot_21401973\application_VictorPernot_21401973.map&mode=browse
+
+IMAGETYPE "jpegperso1"
+SIZE 1000 600 
+SHAPEPATH "C:/ms4w/apps/application_VictorPernot_21401973/donnees/CREA"
+IMAGECOLOR 210 210 210
+EXTENT 504377.378794 6898687.963899 608073.385947 6935188.958417
+FONTSET "polices.txt"
+
+OUTPUTFORMAT
+	NAME "jpegperso1"
+	DRIVER "AGG/JPEG"
+	MIMETYPE "image/jpeg"
+	IMAGEMODE RGB
+	EXTENSION "jpg"
+	FORMATOPTION "QUALITY=100"
+END
+
+WEB
+	IMAGEPATH "/ms4w/tmp/ms_tmp/" 
+	IMAGEURL "/ms_tmp/"
+	TEMPLATE "template1.html"
+END
+	
+	PROJECTION
+		"init=epsg:2154"
+	END
+	
+	LAYER
+		NAME L1C_T31UCQ_A013390_20180114T110409
+		DATA "../raster/L1C_T31UCQ_A013390_20180114T110409.tif"
+		STATUS DEFAULT
+		TYPE RASTER
+		PROJECTION
+			"init=epsg:32631"
+		END
+	END
+	
+	LAYER
+		NAME createst2
+		DATA "../CREA/createst2.shp"
+		STATUS DEFAULT
+		TYPE POLYGON
+		CLASS
+			NAME "Métropole Rouen-Normandie"
+			STYLE
+				COLOR 255 206 66
+				OUTLINECOLOR 0 0 0
+				OPACITY 30
+			END
+		END
+		PROJECTION
+			"init=epsg:2154"
+		END
+	END
+	
+	LAYER
+		NAME rivieres
+		DATA "../coursdeau/rivieres.shp"
+		STATUS DEFAULT
+		TYPE LINE
+		CLASS
+			NAME "Cours d'eau"
+			STYLE
+				COLOR 0 0 255
+				WIDTH 1
+			END
+		END
+		PROJECTION
+			"init=epsg:2154"
+		END
+	END
+	
+	LAYER
+		NAME captageprio
+		DATA "../captage/captageprio.shp"
+		STATUS DEFAULT
+		TYPE POINT
+		TOLERANCE 3
+		CLASS
+			NAME "Autre lieu de captage"
+			STYLE
+				COLOR 255 165 0
+				SIZE 15
+				SYMBOL "cercle"
+			END
+			TEMPLATE "c:/ms4w/apps/application_VictorPernot_21401973/templatedonnees.html"
+		END
+		PROJECTION
+			"init=epsg:2154"
+		END
+	END
+	
+	LAYER
+		NAME captageagglo
+		DATA "../captage/captageagglo.shp"
+		STATUS DEFAULT
+		TYPE POINT
+		LABELITEM "NOM"
+		CLASS
+			NAME "Lieu de captage géré par la Métropole"
+			STYLE
+				COLOR 255 0 0
+				SIZE 15
+				SYMBOL "cercle"
+			END
+			TEMPLATE "c:/ms4w/apps/application_VictorPernot_21401973/templatedonnees.html"
+		END
+		PROJECTION
+			"init=epsg:2154"
+		END
+	END
+	
+	LAYER
+		NAME "fondWMS"
+		TYPE POLYGON
+		STATUS DEFAULT
+		CONNECTIONTYPE WMS
+		CONNECTION "http://www.geosignal.org/cgi-bin/wmsmap?"
+		METADATA
+			"wms_srs" 				"epsg:2154"
+			"wms_name"				"Cantons"
+			"wms_server_version"	"1.1.1"
+			"wms_format"			"image/png"
+		END
+	END
+	
+	SYMBOL
+		NAME "cercle"
+		TYPE ellipse
+		FILLED true
+		POINTS
+			1 1
+		END
+	END
+	
+	LEGEND
+		STATUS ON
+		POSITION ll #l : lower, r : right
+		KEYSIZE 40 20
+		IMAGECOLOR 223 223 223
+	END
+	
+	SCALEBAR
+		SIZE 300 10
+		POSITION lr
+		INTERVALS 3
+		STATUS ON
+		STYLE 0
+		LABEL
+			COLOR 0 0 0
+			OUTLINECOLOR 255 255 255
+		END
+		UNITS kilometers
+		IMAGECOLOR 223 223 223
+		COLOR 0 0 0
+		OUTLINECOLOR 0 0 255
+	END
+	
+END

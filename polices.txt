@@ -1,0 +1,3 @@
+Arial ./polices/arial.ttf
+Comic ./polices/comic.ttf
+
